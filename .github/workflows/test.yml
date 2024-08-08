@@ -1,0 +1,42 @@
+name: 
+# Ensure the workflow runs on schedule (Sunday at 0:00) and on push to the main branch
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: "0 0 * * 0" 
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16.x, 18.x]
+    steps:
+      # Check out the code from the repository.
+      - uses: 
+
+      # Set up a Node.js environment using the specified node version.
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      # Install the dependencies.
+      - run:  |
+          cd backend
+          npm ci
+
+      # Run the tests.
+      - run: |
+          cd backend 
+          npm test
+
+      # Run the linter.
+      - run: 
+          npm lint
+      # Send a console message at completion.
+      - run: |
+          echo "Hello ${{github.actor}}. You pushed to ${{github.repository}} at ${{date}}."
+
+
