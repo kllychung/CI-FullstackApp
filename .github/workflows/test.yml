@@ -15,7 +15,7 @@ jobs:
         node-version: [16.x, 18.x]
     steps:
       # Check out the code from the repository.
-      - uses: 
+      - uses: actions/checkout@v4
 
       # Set up a Node.js environment using the specified node version.
       - uses: actions/setup-node@v3
@@ -33,8 +33,7 @@ jobs:
           npm test
 
       # Run the linter.
-      - run: 
-          npm lint
+      - run: npm lint
       # Send a console message at completion.
       - run: |
           echo "Hello ${{github.actor}}. You pushed to ${{github.repository}} at ${{date}}."
