@@ -14,28 +14,30 @@ jobs:
       matrix:
         node-version: [16.x, 18.x]
     steps:
-      # Check out the code from the repository.
-      - uses: actions/checkout@v4
+      - name: 'Checkout code'
+        uses: actions/checkout@v4
 
-      # Set up a Node.js environment using the specified node version.
-      - uses: actions/setup-node@v3
+      - name: 'Node env setup'
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
 
-      # Install the dependencies.
-      - run:  |
+      - name: Install the dependencies
+        run:  |
           cd backend
           npm ci
 
       # Run the tests.
-      - run: |
+      - name: Run tests
+        run: |
           cd backend 
           npm test
 
-      # Run the linter.
-      - run: npm lint
-      # Send a console message at completion.
-      - run: |
+      - name: Run linter
+        run: cd backend && npm run lint
+
+      - name: Message post completion
+        run: |
           echo "Hello ${{github.actor}}. You pushed to ${{github.repository}} at $(date)."
 
 
