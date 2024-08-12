@@ -1,13 +1,12 @@
-const express = require('express');
-const app = express();
-const port = 3000;
+const assert = require('assert');
+const server = require('./app.js');
+const supertest = require('supertest');
+const requestWithSupertest = supertest(server);
 
-app.get('/', (req, res) => {
-    res.status(200).send('Server is running');
+describe('Simple Test', function () {
+    it('should always pass', async () => {
+        const res = await requestWithSupertest.get('/');
+        assert.equal(res.status, 200)
+    });
 });
 
-app.listen(port, () => {
-    console.log(`Server running at http://localhost:${port}`);
-});
-
-module.exports = app;  // export for testing
